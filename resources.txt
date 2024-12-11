@@ -1,0 +1,36 @@
+NAME                                   READY   STATUS    RESTARTS        AGE
+pod/kubemq-bridges-797b45796f-twtrl    1/1     Running   0               175m
+pod/kubemq-cluster-1-0                 1/1     Running   0               3h18m
+pod/kubemq-cluster-1-1                 1/1     Running   0               3h17m
+pod/kubemq-cluster-1-2                 1/1     Running   2 (3h13m ago)   3h15m
+pod/kubemq-cluster-2-0                 1/1     Running   0               3h18m
+pod/kubemq-cluster-2-1                 1/1     Running   0               3h17m
+pod/kubemq-cluster-2-2                 1/1     Running   0               3h15m
+pod/kubemq-operator-575f7977f8-ctlbj   1/1     Running   0               3h22m
+pod/kubemq-sources-c8b45f88b-xlm7m     1/1     Running   0               170m
+
+NAME                            TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)                                AGE
+service/kubemq-bridges          ClusterIP      34.118.226.123   <none>          8080/TCP                               175m
+service/kubemq-cluster-1        ClusterIP      None             <none>          50000/TCP,8080/TCP,9090/TCP,5228/TCP   3h18m
+service/kubemq-cluster-1-api    ClusterIP      34.118.227.71    <none>          8080/TCP                               3h18m
+service/kubemq-cluster-1-grpc   LoadBalancer   34.118.229.246   34.173.221.21   50000:32236/TCP                        3h18m
+service/kubemq-cluster-1-rest   ClusterIP      34.118.236.116   <none>          9090/TCP                               3h18m
+service/kubemq-cluster-2        ClusterIP      None             <none>          50000/TCP,8080/TCP,9090/TCP,5228/TCP   3h18m
+service/kubemq-cluster-2-api    ClusterIP      34.118.226.183   <none>          8080/TCP                               3h18m
+service/kubemq-cluster-2-grpc   ClusterIP      34.118.226.113   <none>          50000/TCP                              3h18m
+service/kubemq-cluster-2-rest   ClusterIP      34.118.226.197   <none>          9090/TCP                               3h18m
+service/kubemq-sources          ClusterIP      34.118.238.200   <none>          8080/TCP                               170m
+
+NAME                              READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/kubemq-bridges    1/1     1            1           175m
+deployment.apps/kubemq-operator   1/1     1            1           3h22m
+deployment.apps/kubemq-sources    1/1     1            1           170m
+
+NAME                                         DESIRED   CURRENT   READY   AGE
+replicaset.apps/kubemq-bridges-797b45796f    1         1         1       175m
+replicaset.apps/kubemq-operator-575f7977f8   1         1         1       3h22m
+replicaset.apps/kubemq-sources-c8b45f88b     1         1         1       170m
+
+NAME                                READY   AGE
+statefulset.apps/kubemq-cluster-1   3/3     3h18m
+statefulset.apps/kubemq-cluster-2   3/3     3h18m
