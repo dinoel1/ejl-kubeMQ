@@ -1,0 +1,236 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    autopilot.gke.io/resource-adjustment: '{"input":{"containers":[{"name":"kubemq-cluster-2"}]},"output":{"containers":[{"limits":{"ephemeral-storage":"1Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"kubemq-cluster-2"}]},"modified":true}'
+    autopilot.gke.io/warden-version: 3.0.42
+    kubemq.io/deployment-cluster-id: 43087ca9979551cd6181cd65fad4805148690a1b8c63778fdfee77be99f5b518
+    kubemq.io/deployment-created-at: "2025-01-09T15:50:42Z"
+    kubemq.io/deployment-id: QMEjJLxvBd1DxEK7qxQfFS
+    kubemq.io/deployment-type: cluster
+  creationTimestamp: "2025-01-09T15:50:42Z"
+  generation: 1
+  labels:
+    app: kubemq-cluster-2
+  managedFields:
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:kubemq.io/deployment-cluster-id: {}
+          f:kubemq.io/deployment-created-at: {}
+          f:kubemq.io/deployment-id: {}
+          f:kubemq.io/deployment-type: {}
+        f:labels:
+          .: {}
+          f:app: {}
+        f:ownerReferences:
+          .: {}
+          k:{"uid":"b46273b0-ace8-4fcf-bfb0-229482081148"}: {}
+      f:spec:
+        f:persistentVolumeClaimRetentionPolicy:
+          .: {}
+          f:whenDeleted: {}
+          f:whenScaled: {}
+        f:podManagementPolicy: {}
+        f:replicas: {}
+        f:revisionHistoryLimit: {}
+        f:selector: {}
+        f:serviceName: {}
+        f:template:
+          f:metadata:
+            f:annotations:
+              .: {}
+              f:prometheus.io/path: {}
+              f:prometheus.io/port: {}
+              f:prometheus.io/scrape: {}
+            f:labels:
+              .: {}
+              f:app: {}
+          f:spec:
+            f:containers:
+              k:{"name":"kubemq-cluster-2"}:
+                .: {}
+                f:env:
+                  .: {}
+                  k:{"name":"CHECKSUM"}:
+                    .: {}
+                    f:name: {}
+                    f:value: {}
+                  k:{"name":"CLUSTER_ENABLE"}:
+                    .: {}
+                    f:name: {}
+                    f:value: {}
+                  k:{"name":"CLUSTER_NAME"}:
+                    .: {}
+                    f:name: {}
+                    f:value: {}
+                  k:{"name":"CLUSTER_ROUTES"}:
+                    .: {}
+                    f:name: {}
+                    f:value: {}
+                f:envFrom: {}
+                f:image: {}
+                f:imagePullPolicy: {}
+                f:name: {}
+                f:ports:
+                  .: {}
+                  k:{"containerPort":5228,"protocol":"TCP"}:
+                    .: {}
+                    f:containerPort: {}
+                    f:name: {}
+                    f:protocol: {}
+                  k:{"containerPort":8080,"protocol":"TCP"}:
+                    .: {}
+                    f:containerPort: {}
+                    f:name: {}
+                    f:protocol: {}
+                  k:{"containerPort":9090,"protocol":"TCP"}:
+                    .: {}
+                    f:containerPort: {}
+                    f:name: {}
+                    f:protocol: {}
+                  k:{"containerPort":50000,"protocol":"TCP"}:
+                    .: {}
+                    f:containerPort: {}
+                    f:name: {}
+                    f:protocol: {}
+                f:resources: {}
+                f:terminationMessagePath: {}
+                f:terminationMessagePolicy: {}
+            f:dnsPolicy: {}
+            f:restartPolicy: {}
+            f:schedulerName: {}
+            f:securityContext:
+              .: {}
+              f:fsGroup: {}
+            f:serviceAccount: {}
+            f:serviceAccountName: {}
+            f:terminationGracePeriodSeconds: {}
+        f:updateStrategy:
+          f:type: {}
+    manager: kubemq-operator
+    operation: Update
+    time: "2025-01-09T15:50:42Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        f:availableReplicas: {}
+        f:collisionCount: {}
+        f:currentReplicas: {}
+        f:currentRevision: {}
+        f:observedGeneration: {}
+        f:readyReplicas: {}
+        f:replicas: {}
+        f:updateRevision: {}
+        f:updatedReplicas: {}
+    manager: kube-controller-manager
+    operation: Update
+    subresource: status
+    time: "2025-01-09T15:52:59Z"
+  name: kubemq-cluster-2
+  namespace: kubemq
+  ownerReferences:
+  - apiVersion: core.k8s.kubemq.io/v1beta1
+    blockOwnerDeletion: true
+    controller: true
+    kind: KubemqCluster
+    name: kubemq-cluster-2
+    uid: b46273b0-ace8-4fcf-bfb0-229482081148
+  resourceVersion: "29362"
+  uid: 2274d318-01d4-4162-8a9e-c2bdfc3c7f8b
+spec:
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
+  podManagementPolicy: OrderedReady
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: kubemq-cluster-2
+  serviceName: kubemq-cluster-2
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+      creationTimestamp: null
+      labels:
+        app: kubemq-cluster-2
+    spec:
+      containers:
+      - env:
+        - name: CLUSTER_NAME
+          value: kubemq-cluster-2
+        - name: CLUSTER_ROUTES
+          value: kubemq-cluster-2:5228
+        - name: CLUSTER_ENABLE
+          value: "true"
+        - name: CHECKSUM
+          value: cdd8ad4166b5a631c0edc52650370df94044eb489f8be96b166447505aec6ac93914ad817950d4f0506f59583476e2daa3cae1117192db42e29cf0587e8d1405
+        envFrom:
+        - secretRef:
+            name: kubemq-cluster-2
+        - configMapRef:
+            name: kubemq-cluster-2
+        image: docker.io/kubemq/kubemq:latest
+        imagePullPolicy: Always
+        name: kubemq-cluster-2
+        ports:
+        - containerPort: 50000
+          name: grpc-port
+          protocol: TCP
+        - containerPort: 8080
+          name: api-port
+          protocol: TCP
+        - containerPort: 9090
+          name: rest-port
+          protocol: TCP
+        - containerPort: 5228
+          name: cluster-port
+          protocol: TCP
+        resources:
+          limits:
+            ephemeral-storage: 1Gi
+          requests:
+            cpu: 500m
+            ephemeral-storage: 1Gi
+            memory: 2Gi
+        securityContext:
+          capabilities:
+            drop:
+            - NET_RAW
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 200
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccount: kubemq-cluster
+      serviceAccountName: kubemq-cluster
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: kubernetes.io/arch
+        operator: Equal
+        value: amd64
+  updateStrategy:
+    type: RollingUpdate
+status:
+  availableReplicas: 3
+  collisionCount: 0
+  currentReplicas: 3
+  currentRevision: kubemq-cluster-2-76bcb5587b
+  observedGeneration: 1
+  readyReplicas: 3
+  replicas: 3
+  updateRevision: kubemq-cluster-2-76bcb5587b
+  updatedReplicas: 3

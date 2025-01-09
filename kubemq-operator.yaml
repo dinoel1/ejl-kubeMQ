@@ -1,0 +1,222 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    autopilot.gke.io/resource-adjustment: '{"input":{"containers":[{"name":"kubemq-operator"}]},"output":{"containers":[{"limits":{"ephemeral-storage":"1Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"kubemq-operator"}]},"modified":true}'
+    autopilot.gke.io/warden-version: 3.0.42
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: "2025-01-09T15:40:58Z"
+  generation: 5
+  managedFields:
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        f:progressDeadlineSeconds: {}
+        f:replicas: {}
+        f:revisionHistoryLimit: {}
+        f:selector: {}
+        f:strategy:
+          f:rollingUpdate:
+            .: {}
+            f:maxSurge: {}
+            f:maxUnavailable: {}
+          f:type: {}
+        f:template:
+          f:metadata:
+            f:labels:
+              .: {}
+              f:app: {}
+          f:spec:
+            f:containers:
+              k:{"name":"kubemq-operator"}:
+                .: {}
+                f:command: {}
+                f:env:
+                  .: {}
+                  k:{"name":"CONNECTOR_BRIDGES_IMAGE"}:
+                    .: {}
+                    f:name: {}
+                    f:value: {}
+                  k:{"name":"CONNECTOR_SOURCES_IMAGE"}:
+                    .: {}
+                    f:name: {}
+                    f:value: {}
+                  k:{"name":"CONNECTOR_TARGETS_IMAGE"}:
+                    .: {}
+                    f:name: {}
+                    f:value: {}
+                  k:{"name":"POD_NAME"}:
+                    .: {}
+                    f:name: {}
+                    f:valueFrom:
+                      .: {}
+                      f:fieldRef: {}
+                  k:{"name":"RELATED_IMAGE_KUBEMQ_CLUSTER"}:
+                    .: {}
+                    f:name: {}
+                    f:value: {}
+                  k:{"name":"WATCH_NAMESPACE"}:
+                    .: {}
+                    f:name: {}
+                    f:valueFrom:
+                      .: {}
+                      f:fieldRef: {}
+                f:image: {}
+                f:imagePullPolicy: {}
+                f:name: {}
+                f:ports:
+                  .: {}
+                  k:{"containerPort":8080,"protocol":"TCP"}:
+                    .: {}
+                    f:containerPort: {}
+                    f:protocol: {}
+                  k:{"containerPort":8090,"protocol":"TCP"}:
+                    .: {}
+                    f:containerPort: {}
+                    f:protocol: {}
+                f:resources: {}
+                f:terminationMessagePath: {}
+                f:terminationMessagePolicy: {}
+            f:dnsPolicy: {}
+            f:restartPolicy: {}
+            f:schedulerName: {}
+            f:securityContext: {}
+            f:serviceAccount: {}
+            f:serviceAccountName: {}
+            f:terminationGracePeriodSeconds: {}
+    manager: kubectl-client-side-apply
+    operation: Update
+    time: "2025-01-09T15:40:58Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          f:deployment.kubernetes.io/revision: {}
+      f:status:
+        f:availableReplicas: {}
+        f:conditions:
+          .: {}
+          k:{"type":"Available"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Progressing"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+        f:observedGeneration: {}
+        f:readyReplicas: {}
+        f:replicas: {}
+        f:updatedReplicas: {}
+    manager: kube-controller-manager
+    operation: Update
+    subresource: status
+    time: "2025-01-09T16:03:32Z"
+  name: kubemq-operator
+  namespace: kubemq
+  resourceVersion: "39264"
+  uid: 39a1cd8f-43a9-4c38-9887-db33300f8997
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: kubemq-operator
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: kubemq-operator
+    spec:
+      containers:
+      - command:
+        - kubemq-operator
+        env:
+        - name: WATCH_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: RELATED_IMAGE_KUBEMQ_CLUSTER
+          value: docker.io/kubemq/kubemq:latest
+        - name: CONNECTOR_TARGETS_IMAGE
+          value: kubemq/kubemq-targets:latest
+        - name: CONNECTOR_SOURCES_IMAGE
+          value: kubemq/kubemq-sources:latest
+        - name: CONNECTOR_BRIDGES_IMAGE
+          value: kubemq/kubemq-bridges:latest
+        image: docker.io/kubemq/kubemq-operator:latest
+        imagePullPolicy: Always
+        name: kubemq-operator
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 8090
+          protocol: TCP
+        resources:
+          limits:
+            ephemeral-storage: 1Gi
+          requests:
+            cpu: 500m
+            ephemeral-storage: 1Gi
+            memory: 2Gi
+        securityContext:
+          capabilities:
+            drop:
+            - NET_RAW
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccount: kubemq-operator
+      serviceAccountName: kubemq-operator
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: kubernetes.io/arch
+        operator: Equal
+        value: amd64
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2025-01-09T15:43:20Z"
+    lastUpdateTime: "2025-01-09T15:43:20Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2025-01-09T15:40:59Z"
+    lastUpdateTime: "2025-01-09T15:43:20Z"
+    message: ReplicaSet "kubemq-operator-575f7977f8" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 5
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
